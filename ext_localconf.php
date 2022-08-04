@@ -1,21 +1,20 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
-}
+defined('TYPO3') || die();
+
+// https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Deprecation-87550-UseControllerClassesWhenRegisteringPluginsmodules.html
 
 // configure the plugin
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Loss.glpairs',
+	'glpairs',
 	'Pi1',
-	array(
+	[
 	    \Loss\Glpairs\Controller\PairsController::class  => 'list,ajaxBasicData',
 		
-	),
+	],
 	// non-cacheable actions
-	array(
+	[
 	    \Loss\Glpairs\Controller\PairsController::class => 'list',
-		
-	)
+	]
 );
 
 // register new content element wizard
@@ -32,5 +31,5 @@ if (class_exists('TYPO3\\CMS\\Core\\Imaging\\IconRegistry')) {
         [
             'source' => 'EXT:glpairs/Resources/Public/Icons/ext_icon.svg',
         ]
-        );
+    );
 }
