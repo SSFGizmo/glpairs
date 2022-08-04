@@ -2,7 +2,7 @@
 defined('TYPO3') || die();
 
 $tx_glpairs_domain_model_pair = [
-    'ctrl' => array(
+    'ctrl' => [
         'title'	=> 'LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model_pair',
         'label' => 'name',
         'tstamp' => 'tstamp',
@@ -15,15 +15,15 @@ $tx_glpairs_domain_model_pair = [
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'type' => 'type',
-        'enablecolumns' => array(
+        'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
-        ),
+        ],
         'searchFields' => 'name,fal_image1,fal_image2,description,use_description,',
         'iconfile' => 'EXT:glpairs/Resources/Public/Icons/tx_glpairs_domain_model_pair.gif'
-    ),
-	'types' => array(
+    ],
+	'types' => [
 	    '0' => array(  'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, --palette--;;1, type, name, bordersize, finaltextactive, 
 									--div--;LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model_pair.tabimage1,fal_image1, height1, width1, 
 									--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime',
@@ -51,34 +51,18 @@ $tx_glpairs_domain_model_pair = [
                         	        'subtype_value_field' => 'finaltextactive',
                         	        'subtypes_addlist' => array( '1' => 'finaltextheight, finaltextwidth, finalpicheight, finalpicwidth, finaltext' )
 	    )
-	),
-	'palettes' => array(
-		'1' => array('showitem' => '')
-	),
-	'columns' => array(
-//      for Typo3 11.5 switch to this syntax. But in the moment it breakks with 10.4
-// 		'sys_language_uid' => array(
-// 			'exclude' => 1,
-// 			'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
-// 		    'config' => array(
-// 		        'type'       => 'language',
-// 		    ),
-// 		),
-	    'sys_language_uid' => array(
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
-	        'config' => array(
-	            'type' => 'select',
-	            'foreign_table' => 'sys_language',
-	            'foreign_table_where' => 'ORDER BY sys_language.title',
-	            'items' => array(
-	                array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1),
-	                array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0)
-	            ),
-	            'renderType' => 'selectSingle',
-	            'default' => 0
-	        ),
-	    ),
+	],
+	'palettes' => [
+		'1' => ['showitem' => '']
+	],
+	'columns' => [
+	    'sys_language_uid' => [
+	        'exclude' => true,
+	        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+	        'config' => [
+	            'type' => 'language',
+	        ],
+	    ],
 	    'l10n_parent' => array(
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
@@ -405,7 +389,7 @@ $tx_glpairs_domain_model_pair = [
 				    'default' => 0
 				),
 		)
-	)
+	]
 ];
 
 return $tx_glpairs_domain_model_pair;

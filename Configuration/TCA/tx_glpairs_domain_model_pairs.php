@@ -2,7 +2,7 @@
 defined('TYPO3') || die();
 
 $tx_glpairs_domain_model_pairs = [
-    'ctrl' => array(
+    'ctrl' => [
         'title'	=> 'LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model_pairs',
         'label' => 'name',
         'tstamp' => 'tstamp',
@@ -15,15 +15,15 @@ $tx_glpairs_domain_model_pairs = [
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'type' => 'type',
-        'enablecolumns' => array(
+        'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
-        ),
+        ],
         'searchFields' => 'name,type,width,has_pairs,',
         'iconfile' => 'EXT:glpairs/Resources/Public/Icons/tx_glpairs_domain_model_pairs.gif'
-	),
-	'types' => array(
+	],
+	'types' => [
 	    '0' => array(  'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, --palette--;;1, type, name, splitmode, width, bordersize, cardheight, cardwidth, pluspoints, minuspoints, backimage, custom_backimage1, custom_backimage2, maxcards, has_pairs, 
 									--div--;LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model.tabfinalinfo, finaltextwidth, finaltextheight, finalpicwidth, finalpicheight,
 									--div--;LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model.tabadvanced, turnbackdelay, hintdelay, turnduration, stackduration, testmodeturndelay, testmode,
@@ -44,34 +44,18 @@ $tx_glpairs_domain_model_pairs = [
 									--div--;LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model.tabadvanced, turnbackdelay, hintdelay, turnduration, stackduration, testmodeturndelay, testmode,
 									--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'
 				),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-	),
-	'columns' => array(
-//      for Typo3 11.5 switch to this syntax. But in the moment it breakks with 10.4
-// 		'sys_language_uid' => array(
-// 			'exclude' => 1,
-// 			'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
-// 		    'config' => array(
-// 		        'type'       => 'language',
-// 		    ),
-// 		),
-	    'sys_language_uid' => array(
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
-	        'config' => array(
-	            'type' => 'select',
-	            'foreign_table' => 'sys_language',
-	            'foreign_table_where' => 'ORDER BY sys_language.title',
-	            'items' => array(
-	                array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1),
-	                array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0)
-	            ),
-	            'renderType' => 'selectSingle',
-	            'default' => 0
-	        ),
-	    ),
+	],
+	'palettes' => [
+		'1' => ['showitem' => ''],
+	],
+	'columns' => [
+	    'sys_language_uid' => [
+	        'exclude' => true,
+	        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+	        'config' => [
+	            'type' => 'language',
+	        ],
+	    ],
 	    'l10n_parent' => array(
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
@@ -455,7 +439,7 @@ $tx_glpairs_domain_model_pairs = [
 				),
 		),
 				
-	),
+	],
 ];
 
 return $tx_glpairs_domain_model_pairs;
