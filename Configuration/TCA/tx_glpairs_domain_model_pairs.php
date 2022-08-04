@@ -1,9 +1,7 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
+defined('TYPO3') || die();
 
-$tx_glpairs_domain_model_pairs = array(
+$tx_glpairs_domain_model_pairs = [
     'ctrl' => array(
         'title'	=> 'LLL:EXT:glpairs/Resources/Private/Language/locallang_db.xlf:tx_glpairs_domain_model_pairs',
         'label' => 'name',
@@ -458,7 +456,7 @@ $tx_glpairs_domain_model_pairs = array(
 		),
 				
 	),
-);
+];
 
 return $tx_glpairs_domain_model_pairs;
 ?>
