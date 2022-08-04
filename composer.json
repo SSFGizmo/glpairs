@@ -30,5 +30,10 @@
 		"extension",
 		"pairs",
 		"game"
-	]
+	],
+	"extra": {
+		"typo3/cms": {
+		"extension-key": "glpairs"
+		}
+	}
 }
