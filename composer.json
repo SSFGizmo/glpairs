@@ -33,7 +33,7 @@
 	],
 	"extra": {
 		"typo3/cms": {
-		"extension-key": "glpairs"
+			"extension-key": "glpairs"
 		}
 	}
 }
