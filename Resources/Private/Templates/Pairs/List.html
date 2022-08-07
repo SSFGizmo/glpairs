@@ -1,3 +1,4 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 {namespace glpairs=Loss\Glpairs\ViewHelpers}
 <f:layout name="Default" />
 
@@ -7,12 +8,12 @@ There are two types of cards available. Textcards and imagecards. For textcards 
 and for imagecards we use the partial tableImage.
 
 <f:section name="main">
+<f:variable name="glpairsUid" value="{glpairs:uid()}" />
+<!-- The container for the pairs game with ID {pairsGame.uid} and in the content element with ID {glpairsUid} -->
+<div id="{glpairsUid}_{pairsGame.uid}_glpairs_container">
 
-<!-- The container for the pairs game with ID {pairsGame.uid} and in the content element with ID {glpairs:uid()} -->
-<div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_container">
-
-	<div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_main_upper" class="glpairs_cls_main_sub_frame" >
-	    <table id="{glpairs:uid()}_{pairsGame.uid}_glpairs_content_upper" class="glpairs_cls_content_container">
+	<div id="{glpairsUid}_{pairsGame.uid}_glpairs_main_upper" class="glpairs_cls_main_sub_frame" >
+	    <table id="{glpairsUid}_{pairsGame.uid}_glpairs_content_upper" class="glpairs_cls_content_container">
 	    	
 	    	<f:comment> {upperPairs -> f:debug(title: 'Members of upperPairs')} </f:comment> 
 	    	<f:comment> {pairsGame -> f:debug(title: 'Members of pairsGame')} </f:comment>
@@ -27,7 +28,7 @@ and for imagecards we use the partial tableImage.
 	    			<f:comment> go through every pair in the table row </f:comment>
 		        	<f:for each="{upperRow}" as="upperPair">
 		        		<f:comment> call the partial for this pair </f:comment>
-		        		<f:render partial="{upperPair.DefaultPartial}" arguments="{pair: upperPair, pairs: pairsGame, level: 'upper'}" />
+		        		<f:render partial="{upperPair.DefaultPartial}" arguments="{pair: upperPair, pairs: pairsGame, level: 'upper', glpairsUid: glpairsUid}" />
 		        	</f:for>
 		
 		        </tr>
@@ -38,19 +39,19 @@ and for imagecards we use the partial tableImage.
 	<f:comment> only if we are in splitmode we have a lowerPairs object </f:comment>
 	<f:if condition="{pairsGame.splitmode}"> 
 	
-		<div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_separator_middle" class="glpairs_cls_separator_middle">
+		<div id="{glpairsUid}_{pairsGame.uid}_glpairs_separator_middle" class="glpairs_cls_separator_middle">
 		  <!-- one line in the middle -->
 		</div>
-		<div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_main_lower"  class="glpairs_cls_main_sub_frame">
+		<div id="{glpairsUid}_{pairsGame.uid}_glpairs_main_lower"  class="glpairs_cls_main_sub_frame">
 		
-		    <table id="{glpairs:uid()}_{pairsGame.uid}_glpairs_content_lower" class="glpairs_cls_content_container">
+		    <table id="{glpairsUid}_{pairsGame.uid}_glpairs_content_lower" class="glpairs_cls_content_container">
 		
 		    	<f:comment> go through every row in lowerPairs </f:comment>
 		    	<f:for each="{lowerPairs}" as="lowerRow"> 
 		    
 			        <tr class="glpairs_cls_content_container">
 				    	<f:for each="{lowerRow}" as="lowerPair">
-			        		<f:render partial="{lowerPair.DefaultPartial}" arguments="{pair: lowerPair, pairs: pairsGame, level: 'lower'}" />
+			        		<f:render partial="{lowerPair.DefaultPartial}" arguments="{pair: lowerPair, pairs: pairsGame, level: 'lower', glpairsUid: glpairsUid}" />
 						</f:for>
 			        </tr>
 			    </f:for>
@@ -60,23 +61,24 @@ and for imagecards we use the partial tableImage.
 	</f:if>
 	
 	<!-- The result area -->
-	<div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_main_score" border: 1px;">
+	<div id="{glpairsUid}_{pairsGame.uid}_glpairs_main_score" border: 1px;">
 	    <table class="glpairs_cls_result">
 	        <tr>
 	            <td class="glpairs_cls_result">
-	                <div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_label_points"><f:translate key="fluid_list_points" /></div>
+	                <div id="{glpairsUid}_{pairsGame.uid}_glpairs_label_points"><f:translate key="fluid_list_points" /></div>
 	            </td>
 	            <td class="glpairs_cls_result">
-	                <div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_result">0</div>
+	                <div id="{glpairsUid}_{pairsGame.uid}_glpairs_result">0</div>
 	            </td>
 	        </tr>
 	   </table>
 	</div>
 	
 	<!-- The card stack of all correct guessed cards -->
-    <div id="{glpairs:uid()}_{pairsGame.uid}_glpairs_card_stack" class="glpairs_cls_card_stack" 
+    <div id="{glpairsUid}_{pairsGame.uid}_glpairs_card_stack" class="glpairs_cls_card_stack" 
     	 style="height:{pairsGame.MaxPairHeight}px; width: {pairsGame.MaxPairWidth}px;">
     </div>
 	
 </div>
 </f:section>
+</html>
