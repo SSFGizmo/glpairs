@@ -356,7 +356,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	/**
 	 * action list
 	 *
-	 * @return void
+	 * @return ResponseInterface
 	 */
 	public function listAction(): ResponseInterface
 	{
@@ -1009,10 +1009,10 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			$this->m_arrExtIdMapping[$l_objPair->getintExternalId2()] = $l_objPair->getUid();
 			
 			// set the UID Mapping
-			$this->m_arrUidMapping[$l_objPair->getUid()] = array(
+			$this->m_arrUidMapping[$l_objPair->getUid()] = [
 						PairsController::c_strArrIdExtId1 => $l_objPair->getintExternalId1(),
 						PairsController::c_strArrIdExtId2 => $l_objPair->getintExternalId2()	
-					);
+			];
 		}
 	}
 	
