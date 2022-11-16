@@ -1,6 +1,7 @@
 <?php
 namespace Loss\Glpairs\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -85,8 +86,7 @@ class PairsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		
 		// the object storage with pairs
 		/* @var $l_objPairStorage \TYPO3\CMS\Extbase\Persistence\ObjectStorage */
-		$l_objPairStorage = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
-		
+		$l_objPairStorage = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class);
 		// a pair of cards
 		/* @var $l_objPair  \Loss\Glpairs\Domain\Model\Pair */
 		$l_objPair = NULL;
