@@ -1,9 +1,11 @@
 <?php
 namespace Loss\Glpairs\Controller;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use Loss\Glpairs\Domain\Model\Pair;
+
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use Loss\Glpairs\Domain\Model\Pair;
+use Psr\Http\Message\ResponseInterface;
 
 
 /***************************************************************
@@ -275,7 +277,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 * @see $c_strArrPairsDataUid
 	 * @var array
 	 */
-	public static $arrPairsData = array();
+	public static $arrPairsData = [];
 	
 	
 	//*****************************************************************************
@@ -297,7 +299,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Value:			The uID of the Pair
      * @var array
      */
-    protected $m_arrExtIdMapping = array();
+    protected $m_arrExtIdMapping = [];
 	     
     /**
      * Array with the mapping from the uID to the external ID 
@@ -307,7 +309,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * 		  extID2: 	The extID2 of the pair
      * @var array
      */
-    protected $m_arrUidMapping = array();
+    protected $m_arrUidMapping = [];
 	     
 
     /**
@@ -354,9 +356,10 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	/**
 	 * action list
 	 *
-	 * @return void
+	 * @return ResponseInterface
 	 */
-	public function listAction() {
+	public function listAction(): ResponseInterface
+	{
 		
 		// the Session container object
 		/* @var $l_objSessionContainer \Loss\Glpairs\Container\SessionContainer */
@@ -541,6 +544,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		$GLOBALS['TSFE']->fe_user->setAndSaveSessionData(
 								self::c_strSessionIdPairsData . '_' . $this->getPairsUniqueId(), 
 								self::$arrPairsData);
+		return $this->htmlResponse();
 	}
 	
 	/**
@@ -555,7 +559,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	public function ajaxBasicDataAction($i_strUniquId) {
 		
 		// array with the ajax response
-		$l_arrAjaxResponse = array();
+		$l_arrAjaxResponse = [];
 		// the Session data container
 		/* @var $l_objSessionContainer \Loss\Glpairs\Container\SessionContainer */
 		$l_objSessionContainer = NULL;
@@ -568,9 +572,9 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		// get the session data container
 		$l_objSessionContainer = self::$arrPairsData[$i_strUniquId];
 		
-		$l_arrAjaxResponse = array(
+		$l_arrAjaxResponse = [
 			self::c_strArrAjaxUniqueID 	=> $i_strUniquId,
-			self::c_strArrAjaxResult	=> array( 
+			self::c_strArrAjaxResult	=> [
 				self::c_strArrPairsDataExtId 	=> $l_objSessionContainer->getm_arrExtIdMapping(),
 			 	self::c_strArrPairsDataUid		=> $l_objSessionContainer->getm_arrUidMapping(),
 				self::c_strArrPairsPairsType	=> $l_objSessionContainer->getm_intPairsType(),
@@ -586,8 +590,8 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 				self::c_strArrPairsTestmode		=> $l_objSessionContainer->getTestmode(),
 				self::c_strArrPairsTestmodeTurnDelay => $l_objSessionContainer->getTestModeTurnDelay(),
 				self::c_strArrPairsFinalInformation => $l_objSessionContainer->getFinalInformation()
-			)
-		);
+			]
+		];
 		
 		// return the array with the mapping data for the pairs game
 		$this->request->setArgument('e_objAjaxResponse', $l_arrAjaxResponse);
@@ -607,7 +611,7 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		/* @var $l_objObjectStorage  \TYPO3\CMS\Extbase\Persistence\ObjectStorage */
 	    $l_objObjectStorage = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class); 
 		// buffer array for the sorting
-		$l_arrSort = array();
+		$l_arrSort = [];
 		// sorting key
 		$l_intKey = 0;
 		// counter
@@ -986,8 +990,8 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		$l_objPair = NULL;
 		
 		// first initialize the arrays with the external ID mapping
-		$this->m_arrExtIdMapping = array();
-		$this->m_arrUidMapping = array();
+		$this->m_arrExtIdMapping = [];
+		$this->m_arrUidMapping = [];
 		
 		
 		// get all the pairs from the pairs game
@@ -1005,10 +1009,10 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			$this->m_arrExtIdMapping[$l_objPair->getintExternalId2()] = $l_objPair->getUid();
 			
 			// set the UID Mapping
-			$this->m_arrUidMapping[$l_objPair->getUid()] = array(
+			$this->m_arrUidMapping[$l_objPair->getUid()] = [
 						PairsController::c_strArrIdExtId1 => $l_objPair->getintExternalId1(),
 						PairsController::c_strArrIdExtId2 => $l_objPair->getintExternalId2()	
-					);
+			];
 		}
 	}
 	
@@ -1093,15 +1097,15 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	protected function getI18nFrontendValues() {
 		// the returnung array with the I18N values
-		$l_arrI18nValues = array();
+		$l_arrI18nValues = [];
 
-		$l_arrI18nValues = array(
+        $l_arrI18nValues = [
 				'errorWrongCardClickedUpper' => LocalizationUtility::translate('frontend_wrongCardClickedUpper', self::c_strExtensionName),
 				'errorWrongCardClickedLower' => LocalizationUtility::translate('frontend_wrongCardClickedLower', self::c_strExtensionName),
 				'gameFinished' => 			    LocalizationUtility::translate('frontend_gameFinished', self::c_strExtensionName),
 				'clickHint' =>				    LocalizationUtility::translate('frontend_clickHint', self::c_strExtensionName),
 				'testmode' =>				  	LocalizationUtility::translate('frontend_testmode', self::c_strExtensionName)
-			);
+        ];
 		
 		return $l_arrI18nValues;
 	}
@@ -1145,9 +1149,9 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		/* @var $l_objPair \Loss\Glpairs\Domain\Model\Pair */
 		$l_objPair = NULL; 
 		// the returning array
-		$l_arrReturn = array();
+		$l_arrReturn = [];
 		// array with the final informations
-		$l_arrFIData = array();
+		$l_arrFIData = [];
 		// the content of the final information
 		$l_strFIContent = '';
 	
@@ -1160,14 +1164,14 @@ class PairsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			}
 			
 			// build the content array
-			$l_arrFIData = array(
+			$l_arrFIData = [
 					'isActive'  => $l_objPair->getfinaltextactive(),
 					'content'   => $l_strFIContent,
 					'width'	    => $l_objPair->getfinaltextwidth(),
 					'height'    => $l_objPair->getfinaltextheight(),
 					'picwidth'  => $l_objPair->getfinalpicwidth(),
 					'picheight' => $l_objPair->getfinalpicheight()
-				);
+				];
 			
 			// fill the returning array
 			$l_arrReturn[$l_objPair->getUid()] = $l_arrFIData;

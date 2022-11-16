@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE'))	die ('Access denied.');
+defined('TYPO3') || die();
 
 // load CSH for flexform
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
